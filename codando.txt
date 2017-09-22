@@ -1,0 +1,10 @@
+# Tópicos
+
+
+#01 - Commits
+- Particularmente gosto de inserir as tags [dev], [fix] e [config] antes de cada texto do 
+commit, servindo de "subject" do commit;
+
+#02 - Podfile
+- Prefiro utilizar a versão da biblioteca (Ex: pod 'Material', '~> 2.6.3') para anular a
+possibilidade de uma atualização quebrar a implementação atual;
