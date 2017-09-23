@@ -16,6 +16,13 @@
 		8008FCE91F75C94B00C3C98C /* movieaholicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8008FCE81F75C94B00C3C98C /* movieaholicTests.swift */; };
 		8008FCF41F75C94B00C3C98C /* movieaholicUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8008FCF31F75C94B00C3C98C /* movieaholicUITests.swift */; };
 		8008FD041F75CB0F00C3C98C /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8008FD031F75CB0F00C3C98C /* APIManager.swift */; };
+		8008FD061F75D17300C3C98C /* APIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8008FD051F75D17300C3C98C /* APIResponse.swift */; };
+		8008FD0A1F75D4D300C3C98C /* LogUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8008FD091F75D4D300C3C98C /* LogUtil.swift */; };
+		8008FD0C1F75D88F00C3C98C /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8008FD0B1F75D88F00C3C98C /* Reachability.swift */; };
+		8008FD0E1F75D9A600C3C98C /* ConnectionUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8008FD0D1F75D9A600C3C98C /* ConnectionUtil.swift */; };
+		8008FD111F75EE5700C3C98C /* ConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8008FD101F75EE5700C3C98C /* ConfigManager.swift */; };
+		8008FD141F76011000C3C98C /* APIMovie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8008FD131F76010D00C3C98C /* APIMovie.swift */; };
+		8008FD171F760AA100C3C98C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8008FD161F760AA100C3C98C /* HomeViewController.swift */; };
 		84B28FB60B0F763AF7043252 /* Pods_movieaholicTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A758EF4D8FE9FD8BF3F15DC /* Pods_movieaholicTests.framework */; };
 		8C404A16F9C60FD56DE5F0B6 /* Pods_movieaholicUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28969EEE98B945CDEFF52A78 /* Pods_movieaholicUITests.framework */; };
 /* End PBXBuildFile section */
@@ -56,6 +63,13 @@
 		8008FCF31F75C94B00C3C98C /* movieaholicUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = movieaholicUITests.swift; sourceTree = "<group>"; };
 		8008FCF51F75C94B00C3C98C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8008FD031F75CB0F00C3C98C /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
+		8008FD051F75D17300C3C98C /* APIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponse.swift; sourceTree = "<group>"; };
+		8008FD091F75D4D300C3C98C /* LogUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogUtil.swift; sourceTree = "<group>"; };
+		8008FD0B1F75D88F00C3C98C /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		8008FD0D1F75D9A600C3C98C /* ConnectionUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionUtil.swift; sourceTree = "<group>"; };
+		8008FD101F75EE5700C3C98C /* ConfigManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigManager.swift; sourceTree = "<group>"; };
+		8008FD131F76010D00C3C98C /* APIMovie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIMovie.swift; sourceTree = "<group>"; };
+		8008FD161F760AA100C3C98C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		992F8042FDD0ED12DB8E8E16 /* Pods-movieaholic.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-movieaholic.debug.xcconfig"; path = "Pods/Target Support Files/Pods-movieaholic/Pods-movieaholic.debug.xcconfig"; sourceTree = "<group>"; };
 		A1FA4D944C86ADFAC58212B6 /* Pods-movieaholicTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-movieaholicTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-movieaholicTests/Pods-movieaholicTests.release.xcconfig"; sourceTree = "<group>"; };
 		A26E6694C57666441113AD26 /* Pods-movieaholicUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-movieaholicUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-movieaholicUITests/Pods-movieaholicUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -140,7 +154,10 @@
 			isa = PBXGroup;
 			children = (
 				8008FD011F75CAC600C3C98C /* api-http */,
-				8008FCD31F75C94B00C3C98C /* AppDelegate.swift */,
+				8008FD0F1F75EE2900C3C98C /* config */,
+				8008FD151F760A7D00C3C98C /* module */,
+				8008FD081F75D36900C3C98C /* delegate */,
+				8008FD071F75D35B00C3C98C /* util */,
 				8008FCD51F75C94B00C3C98C /* ViewController.swift */,
 				8008FCD71F75C94B00C3C98C /* Main.storyboard */,
 				8008FCDA1F75C94B00C3C98C /* Assets.xcassets */,
@@ -172,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				8008FD021F75CAD200C3C98C /* manager */,
+				8008FD121F7600B900C3C98C /* module */,
 			);
 			path = "api-http";
 			sourceTree = "<group>";
@@ -180,8 +198,51 @@
 			isa = PBXGroup;
 			children = (
 				8008FD031F75CB0F00C3C98C /* APIManager.swift */,
+				8008FD051F75D17300C3C98C /* APIResponse.swift */,
 			);
 			path = manager;
+			sourceTree = "<group>";
+		};
+		8008FD071F75D35B00C3C98C /* util */ = {
+			isa = PBXGroup;
+			children = (
+				8008FD0D1F75D9A600C3C98C /* ConnectionUtil.swift */,
+				8008FD091F75D4D300C3C98C /* LogUtil.swift */,
+				8008FD0B1F75D88F00C3C98C /* Reachability.swift */,
+			);
+			path = util;
+			sourceTree = "<group>";
+		};
+		8008FD081F75D36900C3C98C /* delegate */ = {
+			isa = PBXGroup;
+			children = (
+				8008FCD31F75C94B00C3C98C /* AppDelegate.swift */,
+			);
+			path = delegate;
+			sourceTree = "<group>";
+		};
+		8008FD0F1F75EE2900C3C98C /* config */ = {
+			isa = PBXGroup;
+			children = (
+				8008FD101F75EE5700C3C98C /* ConfigManager.swift */,
+			);
+			path = config;
+			sourceTree = "<group>";
+		};
+		8008FD121F7600B900C3C98C /* module */ = {
+			isa = PBXGroup;
+			children = (
+				8008FD131F76010D00C3C98C /* APIMovie.swift */,
+			);
+			path = module;
+			sourceTree = "<group>";
+		};
+		8008FD151F760A7D00C3C98C /* module */ = {
+			isa = PBXGroup;
+			children = (
+				8008FD161F760AA100C3C98C /* HomeViewController.swift */,
+			);
+			path = module;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -344,9 +405,18 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-movieaholic/Pods-movieaholic-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AlamofireObjectMapper/AlamofireObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/Material/Material.framework",
+				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Material.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -404,9 +474,12 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-movieaholicUITests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -434,9 +507,12 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-movieaholicTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -449,9 +525,12 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-movieaholic-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -466,8 +545,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				8008FD041F75CB0F00C3C98C /* APIManager.swift in Sources */,
+				8008FD061F75D17300C3C98C /* APIResponse.swift in Sources */,
+				8008FD141F76011000C3C98C /* APIMovie.swift in Sources */,
+				8008FD0C1F75D88F00C3C98C /* Reachability.swift in Sources */,
+				8008FD0A1F75D4D300C3C98C /* LogUtil.swift in Sources */,
+				8008FD171F760AA100C3C98C /* HomeViewController.swift in Sources */,
 				8008FCD61F75C94B00C3C98C /* ViewController.swift in Sources */,
 				8008FCD41F75C94B00C3C98C /* AppDelegate.swift in Sources */,
+				8008FD0E1F75D9A600C3C98C /* ConnectionUtil.swift in Sources */,
+				8008FD111F75EE5700C3C98C /* ConfigManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

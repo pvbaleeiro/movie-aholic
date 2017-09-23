@@ -6,12 +6,12 @@ target 'movieaholic' do
   use_frameworks!
   
   #Implementação de Material Design para iOS
-  pod 'Material', '~> 2.6.3'
+  pod 'Material'
   #Implementação de Biblioteca para requisições Http
   pod 'Alamofire', '~> 4.5.0'
   #Implementação para modelagem de classe em JSON
-  pod 'AlamofireObjectMapper', '~> 4.1.0'
-
+  pod 'AlamofireObjectMapper', :git =>'https://github.com/tristanhimmelman/AlamofireObjectMapper.git', :branch => 'swift-4'
+  
   # Pods for movieaholic
 
   target 'movieaholicTests' do
