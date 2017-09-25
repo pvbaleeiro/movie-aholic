@@ -17,12 +17,21 @@ class APIMovie {
     //-------------------------------------------------------------------------------------------------------------
     // MARK: Métodos
     //-------------------------------------------------------------------------------------------------------------
-    class func getTrendingMovies(completion: ((Response<Any>)->())? = nil) {
+    class func getTrendingMovies(forceUpdate: Bool, completion: ((Response<Any>)->())? = nil) {
         
         //Primeiro verifica se há mesmo a necessidade da busca dos dados
-        let trendingStoredList = SessionManager.sharedInstance.getTrendingMovies()
-        let lastSearch = SessionManager.sharedInstance.lastDateSearchTrendingMovies()
-        if (lastSearch == nil || trendingStoredList == nil || Date.hoursBetween(initialDate: lastSearch, finalDate: Date()) > Time.intervalToSearch.rawValue) {
+        var trendingStoredList: NSMutableArray? = nil
+        let needsUpdate: Bool!
+        if (forceUpdate) {
+            needsUpdate = true
+        } else {
+            
+            trendingStoredList = SessionManager.sharedInstance.getTrendingMovies()
+            let lastSearch = SessionManager.sharedInstance.lastDateSearchTrendingMovies()
+            needsUpdate = lastSearch == nil || trendingStoredList == nil || Date.hoursBetween(initialDate: lastSearch, finalDate: Date()) > Time.intervalToSearch.rawValue
+        }
+        //Verificação final
+        if (needsUpdate) {
             
             //Monta url a ser chamada
             let url: URLConvertible = URL(string: String(Url.endpointTrackt.rawValue + Movies.trending.rawValue))!

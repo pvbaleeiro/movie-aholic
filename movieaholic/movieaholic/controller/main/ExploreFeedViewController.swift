@@ -17,6 +17,7 @@ class ExploreFeedViewController: BaseTableController {
     let cellID = "cellID"
     var categories = ["Trending"]
     var moviesTrending: NSMutableArray!
+    var refreshControl: UIRefreshControl!
     
     lazy var tbvMovies: UITableView = {
         let view = UITableView()
@@ -56,11 +57,45 @@ class ExploreFeedViewController: BaseTableController {
         tbvMovies.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         tbvMovies.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         tbvMovies.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
+        
+        //Refresh control para a tabela
+        refreshControl = tbvMovies.addRefreshControl(target: self, action: #selector(doRefresh(_:)))
+        refreshControl.tintColor = UIColor.primaryColor()
+        refreshControl.attributedTitle =
+            NSAttributedString(string: "Buscando dados...",
+                               attributes: [
+                                NSAttributedStringKey.backgroundColor: UIColor.black.withAlphaComponent(0.7),
+                                NSAttributedStringKey.foregroundColor: UIColor.white,
+                                NSAttributedStringKey.font: UIFont.systemFont(ofSize: 25) ])
     }
     
     func setData() {
+        buscaDados(forceUpdate: false)
+    }
+    
+    func setText() {
+        
+    }
+    
+    
+    //-------------------------------------------------------------------------------------------------------------
+    // MARK: Acoes
+    //-------------------------------------------------------------------------------------------------------------
+    @objc func doRefresh(_ sender: UIRefreshControl) {
+        //Busca dados
+        buscaDados(forceUpdate: true)
+        UIView.animate(withDuration: 0.1, animations: {
+            self.view.tintColor = self.view.backgroundColor // store color
+            self.view.backgroundColor = UIColor.white
+        }) { (Bool) in
+            self.view.backgroundColor = self.view.tintColor // restore color
+        }
+    }
+    
+    func buscaDados(forceUpdate: Bool) {
+        
         //Buscar os dados
-        APIMovie.getTrendingMovies() {
+        APIMovie.getTrendingMovies(forceUpdate: forceUpdate) {
             (response) in
             
             switch response {
@@ -69,23 +104,22 @@ class ExploreFeedViewController: BaseTableController {
                 //Obtem resposta e atribui à lista
                 self.moviesTrending = trendingMovies
                 self.tbvMovies.reloadData()
+                self.refreshControl.endRefreshing()
                 break
                 
             case .onError(let erro):
                 print(erro)
+                self.refreshControl.endRefreshing()
                 break
                 
             case .onNoConnection():
                 print("Sem conexão")
+                self.refreshControl.endRefreshing()
                 break
                 
             default: break
             }
         }
-    }
-    
-    func setText() {
-        
     }
 }
 
