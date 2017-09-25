@@ -7,3 +7,10 @@
 //
 
 import Foundation
+
+class ConnectionUtil {
+    
+    class func isConnected() ->Bool {
+        return !(Reachability()?.connection == Reachability.Connection.none)
+    }
+}

@@ -1,0 +1,130 @@
+//
+//  SessionManager.swift
+//  movieaholic
+//
+//  Created by Victor Baleeiro on 24/09/17.
+//  Copyright © 2017 Victor Baleeiro. All rights reserved.
+//
+
+import Foundation
+import ObjectMapper
+
+//-------------------------------------------------------------------------------------------------------------
+// MARK: CONSTANTES / ENUMS
+//-------------------------------------------------------------------------------------------------------------
+enum DefaultKey: String {
+    case lastSearchTrending = "last-search-trending"
+    case lastSearchImages = "last-search-images"
+    case images = "movie-images-%d"
+    case trending = "trending-movie-%d"
+}
+
+enum Time: Int {
+    case intervalToSearch = 24
+}
+
+
+class SessionManager {
+    static let sharedInstance = SessionManager()
+    
+    //-------------------------------------------------------------------------------------------------------------
+    // MARK: Trending movies
+    //-------------------------------------------------------------------------------------------------------------
+    func lastDateSearchTrendingMovies() -> Date? {
+        let userDefaults = UserDefaults.standard
+        let lastSearchTrending = userDefaults.object(forKey: DefaultKey.lastSearchTrending.rawValue) as? Date
+        NSLog("Objeto resgatado das preferencias!")
+        return lastSearchTrending
+    }
+    
+    func updateLastDateSearchTrendingMovies() {
+        let userDefaults = UserDefaults.standard
+        userDefaults.setValue(Date(), forKey: DefaultKey.lastSearchTrending.rawValue)
+        userDefaults.synchronize()
+        NSLog("Objeto armazenado nas preferencias!")
+    }
+    
+    func saveTrendingMovies(trendingMovies: NSMutableArray!) {
+        //Remove o conteudo atual
+        removeTrendingMovies()
+        //Armazena objetos
+        let userDefaults = UserDefaults.standard
+        for movieTrending in (trendingMovies as NSMutableArray as! [MovieTrending]) {
+            userDefaults.setValue(movieTrending.toJSONString(), forKey: String(format:DefaultKey.trending.rawValue, (movieTrending.movie!.ids?.tmdb)!))
+            userDefaults.synchronize()
+            NSLog("Objeto armazenado nas preferencias!")
+        }
+    }
+    
+    func getTrendingMovies() -> NSMutableArray? {
+        let userDefaults = UserDefaults.standard
+        let trendingMovies: NSMutableArray = []
+        for (key, value) in userDefaults.dictionaryRepresentation() {
+            if (key.contains("trending-movie")) {
+                let movieTrending = Mapper<MovieTrending>().map(JSONString: value as! String)
+                trendingMovies.add(movieTrending as Any)
+                NSLog("Objeto resgatado das preferencias!")
+            }
+        }
+        
+        return (trendingMovies.count > 0) ? trendingMovies : nil
+    }
+    
+    func removeTrendingMovies() {
+        let userDefaults = UserDefaults.standard
+        for (key, _) in userDefaults.dictionaryRepresentation() {
+            if (key.contains("trending-movie")) {
+                userDefaults.removeObject(forKey: key)
+                NSLog("Objeto removido das preferencias!")
+            }
+        }
+    }
+    
+    
+    //-------------------------------------------------------------------------------------------------------------
+    // MARK: Imagens
+    //-------------------------------------------------------------------------------------------------------------
+    func lastDateSearchImagesMovies() -> Date? {
+        let userDefaults = UserDefaults.standard
+        let lastSearchTrending = userDefaults.object(forKey: DefaultKey.lastSearchImages.rawValue) as? Date
+        NSLog("Objeto resgatado das preferencias!")
+        return lastSearchTrending
+    }
+    
+    func updateLastDateSearchImagesMovies() {
+        let userDefaults = UserDefaults.standard
+        userDefaults.setValue(Date(), forKey: DefaultKey.lastSearchImages.rawValue)
+        userDefaults.synchronize()
+        NSLog("Objeto armazenado nas preferencias!")
+    }
+    
+    func saveImageMovies(imageMovies: MovieImage?, forId: Int!) {
+        let userDefaults = UserDefaults.standard
+        userDefaults.setValue(imageMovies?.toJSONString(), forKey: String(format:DefaultKey.images.rawValue, forId))
+        userDefaults.synchronize()
+        NSLog("Objeto armazenado nas preferencias!")
+        
+    }
+    
+    func getImageMovies(forId: Int!) -> MovieImage? {
+        let userDefaults = UserDefaults.standard
+        let keyValue: String? = userDefaults.value(forKey: String(format:DefaultKey.images.rawValue, forId)) as? String
+        let movieImage = Mapper<MovieImage>().map(JSONString: keyValue ?? "")
+        NSLog("Objeto resgatado das preferencias!")
+        return movieImage
+    }
+    
+    func saveImageData(imageData: Data, forKey: String) {
+        let userDefaults = UserDefaults.standard
+        userDefaults.setValue(imageData, forKey:forKey)
+        userDefaults.synchronize()
+        NSLog("Objeto armazenado nas preferencias!")
+    }
+    
+    func getImageData(forKey: String) -> Data? {
+        let userDefaults = UserDefaults.standard
+        let imageData: Data? = userDefaults.value(forKey: forKey) as? Data
+        NSLog("Objeto resgatado das preferencias!")
+        return imageData
+    }
+}
