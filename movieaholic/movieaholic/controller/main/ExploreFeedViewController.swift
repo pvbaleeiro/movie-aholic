@@ -64,7 +64,7 @@ class ExploreFeedViewController: BaseTableController {
         refreshControl.attributedTitle =
             NSAttributedString(string: "Buscando dados...",
                                attributes: [
-                                NSAttributedStringKey.backgroundColor: UIColor.black.withAlphaComponent(0.7),
+                                NSAttributedStringKey.backgroundColor: UIColor.black.withAlphaComponent(0.6),
                                 NSAttributedStringKey.foregroundColor: UIColor.white,
                                 NSAttributedStringKey.font: UIFont.systemFont(ofSize: 25) ])
     }

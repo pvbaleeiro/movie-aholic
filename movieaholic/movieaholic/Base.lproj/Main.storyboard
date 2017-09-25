@@ -14,7 +14,7 @@
         <!--Main View Controller-->
         <scene sceneID="Iz9-wQ-rHh">
             <objects>
-                <viewController id="k1j-Q6-Dj4" customClass="MainViewController" customModule="movieaholic" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MainViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="k1j-Q6-Dj4" customClass="MainViewController" customModule="movieaholic" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="NLV-i0-EHg"/>
                         <viewControllerLayoutGuide type="bottom" id="7rt-Nq-orN"/>
@@ -28,7 +28,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KT6-TT-ejw" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-327" y="56"/>
+            <point key="canvasLocation" x="-486" y="55"/>
         </scene>
         <!--Detail Movie View Controller-->
         <scene sceneID="VG5-lE-gf4">
@@ -475,7 +475,7 @@
                                     <constraint firstAttribute="height" constant="76" id="Pbg-fA-QPz"/>
                                     <constraint firstAttribute="width" constant="68" id="ktG-6J-8OF"/>
                                 </constraints>
-                                <state key="normal" image="btn_close_popup"/>
+                                <state key="normal" image="btn-close-popup"/>
                                 <connections>
                                     <action selector="closeScreenWithSender:" destination="l4Z-gC-80B" eventType="touchUpInside" id="YLi-UT-yWI"/>
                                 </connections>
@@ -503,6 +503,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="btn_close_popup" width="24" height="24"/>
+        <image name="btn-close-popup" width="24" height="24"/>
     </resources>
 </document>

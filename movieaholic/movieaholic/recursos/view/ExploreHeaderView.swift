@@ -84,7 +84,7 @@ class ExploreHeaderView: UIView {
     
     lazy var collapseButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "Collapse"), for: .normal)
+        button.setImage(UIImage(named: "collapse"), for: .normal)
         button.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.contentHorizontalAlignment = .center
@@ -135,21 +135,21 @@ class ExploreHeaderView: UIView {
         return btn
     }()
     
-    //    lazy var datePicker: AirbnbDatePicker = {
-    //        let input = AirbnbDatePicker()
-    //        input.translatesAutoresizingMaskIntoConstraints = false
-    //        input.dateInputButton.backgroundColor = Theme.INPUT_COLOR
-    //        input.delegate = self.delegate
-    //        return input
-    //    }()
+    lazy var datePicker: UIDatePicker = {
+        let input = UIDatePicker()
+        input.translatesAutoresizingMaskIntoConstraints = false
+        //input.dateInputButton.backgroundColor = UIColor.primaryColor()
+        //input.delegate = self.delegate
+        return input
+    }()
     
-    //    lazy var guestFilter: AirbnbOccupantFilter = {
-    //        let input = AirbnbOccupantFilter()
-    //        input.translatesAutoresizingMaskIntoConstraints = false
-    //        input.occupantInputButton.backgroundColor = Theme.INPUT_COLOR
-    //        input.delegate = self.delegate
-    //        return input
-    //    }()
+    lazy var guestFilter: UIDatePicker = {
+        let input = UIDatePicker()
+        input.translatesAutoresizingMaskIntoConstraints = false
+        //input.occupantInputButton.backgroundColor = UIColor.primaryColor()
+        //input.delegate = self.delegate
+        return input
+    }()
     
     var pagerView: PageTabNavigationView = {
         let view = PageTabNavigationView()
@@ -195,19 +195,19 @@ class ExploreHeaderView: UIView {
         summaryFilter.widthAnchor.constraint(equalTo: widthAnchor, constant: -20).isActive = true
         summaryFilter.alpha = 0
         
-        //        addSubview(datePicker)
-        //
-        //        datePicker.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        //        datePicker.topAnchor.constraint(equalTo: destinationFilter.bottomAnchor, constant: 10).isActive = true
-        //        datePicker.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        //        datePicker.widthAnchor.constraint(equalTo: widthAnchor, constant: -20).isActive = true
-        //
-        //        addSubview(guestFilter)
-        //
-        //        guestFilter.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        //        guestFilter.topAnchor.constraint(equalTo: datePicker.bottomAnchor, constant: 10).isActive = true
-        //        guestFilter.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        //        guestFilter.widthAnchor.constraint(equalTo: widthAnchor, constant: -20).isActive = true
+        addSubview(datePicker)
+        
+        datePicker.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        datePicker.topAnchor.constraint(equalTo: destinationFilter.bottomAnchor, constant: 10).isActive = true
+        datePicker.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        datePicker.widthAnchor.constraint(equalTo: widthAnchor, constant: -20).isActive = true
+        
+        addSubview(guestFilter)
+        
+        guestFilter.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        guestFilter.topAnchor.constraint(equalTo: datePicker.bottomAnchor, constant: 10).isActive = true
+        guestFilter.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        guestFilter.widthAnchor.constraint(equalTo: widthAnchor, constant: -20).isActive = true
         
         addSubview(whiteOverlayView)
         
@@ -244,24 +244,24 @@ class ExploreHeaderView: UIView {
         let headerBottom = newHeight - pageTabHeight
         
         let midMaxPercentage = (newHeight - midHeaderHeight) / (maxHeaderHeight - midHeaderHeight)
-        //datePicker.alpha = midMaxPercentage
+        datePicker.alpha = midMaxPercentage
         
-        //        var datePickerPercentage3 = (headerBottom - guestFilter.frame.origin.y) / guestFilter.frame.height
-        //        datePickerPercentage3 = max(0, min(1, datePickerPercentage3)) // capped between 0 and 1
-        //guestFilter.alpha = datePickerPercentage3
+        var datePickerPercentage3 = (headerBottom - guestFilter.frame.origin.y) / guestFilter.frame.height
+        datePickerPercentage3 = max(0, min(1, datePickerPercentage3)) // capped between 0 and 1
+        guestFilter.alpha = datePickerPercentage3
         
-        //collapseButton.alpha = datePickerPercentage3
+        collapseButton.alpha = datePickerPercentage3
         
-        //        var collapseButtonTopSpacingPercentage = (headerBottom - destinationFilter.frame.origin.y) / (guestFilter.frame.origin.y + guestFilter.frame.height - destinationFilter.frame.origin.y)
-        //        collapseButtonTopSpacingPercentage = max(0, min(1, collapseButtonTopSpacingPercentage))
-        //        collapseButtonTopConstraint?.constant = collapseButtonTopSpacingPercentage * collapseButtonMaxTopSpacing
+        var collapseButtonTopSpacingPercentage = (headerBottom - destinationFilter.frame.origin.y) / (guestFilter.frame.origin.y + guestFilter.frame.height - destinationFilter.frame.origin.y)
+        collapseButtonTopSpacingPercentage = max(0, min(1, collapseButtonTopSpacingPercentage))
+        collapseButtonTopConstraint?.constant = collapseButtonTopSpacingPercentage * collapseButtonMaxTopSpacing
         
-        //        summaryFilter.setTitle("\(destinationFilter.titleLabel!.text!) • \(datePicker.dateInputButton.titleLabel!.text!) • \(guestFilter.occupantInputButton.titleLabel!.text!)", for: .normal)
+        summaryFilter.setTitle("\(destinationFilter.titleLabel!.text!) • \(destinationFilter.titleLabel!.text!) • \(destinationFilter.titleLabel!.text!)", for: .normal)
         
         if newHeight > midHeaderHeight {
-            //            destinationFilter.alpha = collapseButtonTopSpacingPercentage
-            //            destinationFilterTopConstraint?.constant = max(UIApplication.shared.statusBarFrame.height + 10,collapseButtonTopSpacingPercentage * (collapseButtonHeight + collapseButtonMaxTopSpacing + 10))
-            //            summaryFilter.alpha = 1 - collapseButtonTopSpacingPercentage
+            destinationFilter.alpha = collapseButtonTopSpacingPercentage
+            destinationFilterTopConstraint?.constant = max(UIApplication.shared.statusBarFrame.height + 10,collapseButtonTopSpacingPercentage * (collapseButtonHeight + collapseButtonMaxTopSpacing + 10))
+            summaryFilter.alpha = 1 - collapseButtonTopSpacingPercentage
             whiteOverlayView.alpha = 0
             
             pagerView.backgroundColor = UIColor.primaryColorDark()
@@ -315,3 +315,4 @@ extension ExploreHeaderView: PageTabNavigationViewDelegate {
         pagerView.animatePageTabSelection(toIndex: index)
     }
 }
+
