@@ -9,6 +9,8 @@
 import Foundation
 import ObjectMapper
 import Alamofire
+import AlamofireImage
+import UIKit
 
 class APIMovie {
     
@@ -104,26 +106,52 @@ class APIMovie {
     
     class func getDetailsMovies(traktId: Int, completion: ((Response<Any>)->())? = nil) {
         
-        //Monta url a ser chamada
-        let plusUrl = String(format: Movies.details.rawValue, traktId)
-        let url: URLConvertible = URL(string: String(Url.endpointTrackt.rawValue + plusUrl))!
-        
-        //Faz a chamada web
-        APIManager.sharedInstance.customRequest(httpMethod: .get, url: url, parameters: nil, headers: ConfigManager.sharedInstance.getDefaultHeaders()) { (response) -> () in
+        //Primeiro verifica se há mesmo a necessidade da busca dos dados
+        let movieDetailStored = SessionManager.sharedInstance.getDetailMovie(forId: traktId)
+        let lastSearch = SessionManager.sharedInstance.lastDateSearchDetailMovies()
+        if (lastSearch == nil || movieDetailStored == nil || Date.hoursBetween(initialDate: lastSearch, finalDate: Date()) > Time.intervalToSearch.rawValue) {
             
-            //Sem conexão, avisar para a tela
-            if (!response.connected) {
-                completion!(Response.onNoConnection())
+            //Monta url a ser chamada
+            let plusUrl = String(format: Movies.details.rawValue, traktId)
+            let url: URLConvertible = URL(string: String(Url.endpointTrackt.rawValue + plusUrl))!
+            
+            //Faz a chamada web
+            APIManager.sharedInstance.customRequest(httpMethod: .get, url: url, parameters: nil, headers: ConfigManager.sharedInstance.getDefaultHeaders()) { (response) -> () in
                 
-            } else if (response.objectFromServer != nil) {
-                
-                //Conversões
-                let movieDetails: MovieDetail = Mapper<MovieDetail>().map(JSONObject: response.objectFromServer)!
-                completion!(Response.onSuccess(movieDetails))
-                
-            } else {
-                completion!(Response.onError(response))
+                //Sem conexão, avisar para a tela
+                if (!response.connected) {
+                    completion!(Response.onNoConnection())
+                    
+                } else if (response.objectFromServer != nil) {
+                    
+                    //Conversões
+                    let movieDetails: MovieDetail = Mapper<MovieDetail>().map(JSONObject: response.objectFromServer)!
+                    
+                    //Armazena o objeto e horário em "cache"
+                    SessionManager.sharedInstance.saveDetailMovie(detailMovie: movieDetails, forId: traktId)
+                    SessionManager.sharedInstance.updateLastDateDetailImagesMovies()
+                    
+                    //Responde para a tela
+                    completion!(Response.onSuccess(movieDetails))
+                    
+                } else {
+                    completion!(Response.onError(response))
+                }
             }
+        } else {
+            
+            //Responde para a tela utilizando o objeto armazenado
+            completion!(Response.onSuccess(movieDetailStored as Any))
         }
+    }
+    
+    class func getImage(fromUrl: URL, forImageView: UIImageView) {
+        
+        //Inicia processo
+        
+        
+        //Seta a imagem
+        let placeholderImage = UIImage(named: "default-placeholder~universal")!
+        forImageView.af_setImage(withURL: fromUrl, placeholderImage: placeholderImage)
     }
 }

@@ -90,7 +90,7 @@ class DetailMovieViewController: UIViewController {
             let mainStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
             let zoomController = mainStoryboard.instantiateViewController(withIdentifier: "DetailImageZoomViewController") as! DetailImageZoomViewController
             zoomController.imgReference = imageView.image
-
+            
             self.present(zoomController, animated: true, completion: nil)
         }
     }
@@ -105,33 +105,27 @@ class DetailMovieViewController: UIViewController {
         var positionImage = 0
         
         //Varre a lista de posters
-        DispatchQueue.global().async {
         for poster in (self.movieImages?.posters)! {
             
+            //Cria gesto de tap para acessar a tela de zoom
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.clickOnImage(tapGestureRecognizer:)))
+            
+            //Cria uma ImageView para adicionar
+            let imgGallery = UIImageView(frame: CGRect(x: positionImage, y: 0, width: 300, height: Int(self.scrGalery.frame.height)))
             let url = URL(string: Url.endpointTheMovieDbImage.rawValue + poster.filePath!)
-                let data = try? Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
-                DispatchQueue.main.async {
-                    
-                    //Cria gesto de tap para acessar a tela de zoom
-                    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.clickOnImage(tapGestureRecognizer:)))
-                    
-                    //Cria uma ImageView para adicionar
-                    let imgGallery = UIImageView(frame: CGRect(x: positionImage, y: 0, width: 300, height: Int(self.scrGalery.frame.height)))
-                    imgGallery.image = UIImage(data: data!)
-                    imgGallery.contentMode = UIViewContentMode.scaleAspectFill
-                    imgGallery.isUserInteractionEnabled = true
-                    
-                    //Adiciona o gesto
-                    imgGallery.addGestureRecognizer(tapGesture)
-                    
-                    //Adicona a imagem na scroll
-                    self.scrGalery.addSubview(imgGallery)
-                    self.view.bringSubview(toFront: imgGallery)
-                    
-                    //Incrementa espacamento
-                    positionImage += Int(imgGallery.frame.width)+8
-                }
-            }
+            APIMovie.getImage(fromUrl: url!, forImageView: imgGallery)
+            imgGallery.contentMode = UIViewContentMode.scaleAspectFill
+            imgGallery.isUserInteractionEnabled = true
+            
+            //Adiciona o gesto
+            imgGallery.addGestureRecognizer(tapGesture)
+            
+            //Adicona a imagem na scroll
+            self.scrGalery.addSubview(imgGallery)
+            self.view.bringSubview(toFront: imgGallery)
+            
+            //Incrementa espacamento
+            positionImage += Int(imgGallery.frame.width)+8
         }
         
         //Define tamanho para a Scroll de acordo com as imagens adicionadas

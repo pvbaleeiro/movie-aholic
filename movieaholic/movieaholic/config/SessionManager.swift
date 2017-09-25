@@ -15,8 +15,10 @@ import ObjectMapper
 enum DefaultKey: String {
     case lastSearchTrending = "last-search-trending"
     case lastSearchImages = "last-search-images"
+    case lastSearchDetail = "last-search-detail"
     case images = "movie-images-%d"
-    case trending = "trending-movie-%d"
+    case trending = "movie-tending-%d"
+    case detail = "movie-detail-%d"
 }
 
 enum Time: Int {
@@ -114,17 +116,50 @@ class SessionManager {
         return movieImage
     }
     
-    func saveImageData(imageData: Data, forKey: String) {
+    
+    //-------------------------------------------------------------------------------------------------------------
+    // MARK: Detalhes
+    //-------------------------------------------------------------------------------------------------------------
+    func lastDateSearchDetailMovies() -> Date? {
         let userDefaults = UserDefaults.standard
-        userDefaults.setValue(imageData, forKey:forKey)
+        let lastSearchDetail = userDefaults.object(forKey: DefaultKey.lastSearchDetail.rawValue) as? Date
+        NSLog("Objeto resgatado das preferencias!")
+        return lastSearchDetail
+    }
+    
+    func updateLastDateDetailImagesMovies() {
+        let userDefaults = UserDefaults.standard
+        userDefaults.setValue(Date(), forKey: DefaultKey.lastSearchDetail.rawValue)
         userDefaults.synchronize()
         NSLog("Objeto armazenado nas preferencias!")
     }
     
-    func getImageData(forKey: String) -> Data? {
+    func saveDetailMovie(detailMovie: MovieDetail?, forId: Int!) {
         let userDefaults = UserDefaults.standard
-        let imageData: Data? = userDefaults.value(forKey: forKey) as? Data
+        userDefaults.setValue(detailMovie?.toJSONString(), forKey: String(format:DefaultKey.detail.rawValue, forId))
+        userDefaults.synchronize()
+        NSLog("Objeto armazenado nas preferencias!")
+        
+    }
+    
+    func getDetailMovie(forId: Int!) -> MovieDetail? {
+        let userDefaults = UserDefaults.standard
+        let keyValue: String? = userDefaults.value(forKey: String(format:DefaultKey.detail.rawValue, forId)) as? String
+        let movieDetail = Mapper<MovieDetail>().map(JSONString: keyValue ?? "")
         NSLog("Objeto resgatado das preferencias!")
-        return imageData
+        return movieDetail
+    }
+    
+    
+    //-------------------------------------------------------------------------------------------------------------
+    // MARK: Facebook share
+    //-------------------------------------------------------------------------------------------------------------
+    func shareWithSocial(onController: UIViewController, activityItem: [AnyObject]) {
+        
+        let activityViewController = UIActivityViewController(
+            activityItems: activityItem,
+            applicationActivities: nil)
+        
+        onController.present(activityViewController, animated: true, completion: nil)
     }
 }

@@ -54,11 +54,11 @@ class ExploreViewController: UIViewController {
         return controller
     }()
     
-//    var homeController: AirbnbExploreHomeController = {
-//        let controller = AirbnbExploreHomeController()
-//        controller.title = "Homes"
-//        return controller
-//    }()
+    //    var homeController: AirbnbExploreHomeController = {
+    //        let controller = AirbnbExploreHomeController()
+    //        controller.title = "Homes"
+    //        return controller
+    //    }()
     
     
     //-------------------------------------------------------------------------------------------------------------
@@ -125,10 +125,10 @@ class ExploreViewController: UIViewController {
     
     func setData() {
         //Define dados header view
-       headerView.pageTabControllers = [feedController]
+        headerView.pageTabControllers = [feedController]
         
         //Define dados content view
-        setContent(toViewControllerAtIndex: 0)
+        setContent(toViewControllerAtIndex: 0)        
     }
     
     func setText() {
@@ -226,43 +226,60 @@ extension ExploreViewController: ExploreHeaderViewDelegate {
 // MARK: CategoryTableViewCellDelegate
 //-------------------------------------------------------------------------------------------------------------
 extension ExploreViewController: CategoryTableViewCellDelegate {
+    
     func categoryTableCell(_ tableCell: CategoryTableViewCell, collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as! HomeItemCell
-        let frame = cell.convert(cell.imgPoster.frame, to: view)
-        imageExpandAnimationController.originFrame = frame
         
-        let mainStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
-        let detailViewController = mainStoryboard.instantiateViewController(withIdentifier: "DetailMovieViewController") as! DetailMovieViewController
-        //detailVC.home = cell.home
-        detailViewController.tableIndexPath = tableCell.indexPath
-        detailViewController.cellIndexPath = indexPath
-        detailViewController.movieImages = SessionManager.sharedInstance.getImageMovies(forId: (cell.movie?.movie?.ids?.tmdb)!)
-        detailViewController.transitioningDelegate = self
-        
-        //Carregando os detalhes...
-        let traktId : Int = (cell.movie?.movie?.ids?.trakt)!
-        APIMovie.getDetailsMovies(traktId: traktId) {
-            (response) in
+        //Cria alert sheet para compartilhar ou ir para detalhes
+        let alert = UIAlertController(title: "Movieaholic", message: "Selecione uma das opções abaixo", preferredStyle: .actionSheet)
+        //Adiciona ações
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Cancelar", comment: "Default action"), style: .cancel, handler: { _ in
+            NSLog("Cancelado.")
+        }))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Compartilhar imagem", comment: "Default action"), style: .`default`, handler: { _ in
+            NSLog("Compartilhar.")
+            let cell = collectionView.cellForItem(at: indexPath) as! HomeItemCell
+            let activityItem: [AnyObject] = [cell.imgPoster.image as AnyObject]
+            SessionManager.sharedInstance.shareWithSocial(onController: self, activityItem: activityItem)
+        }))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Ver detalhes", comment: "Default action"), style: .`default`, handler: { _ in
+            NSLog("Detalhes.")
+            let cell = collectionView.cellForItem(at: indexPath) as! HomeItemCell
+            let frame = cell.convert(cell.imgPoster.frame, to: self.view)
+            self.imageExpandAnimationController.originFrame = frame
             
-            switch response {
-            case .onSuccess(let movieDetails as MovieDetail):
+            let mainStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
+            let detailViewController = mainStoryboard.instantiateViewController(withIdentifier: "DetailMovieViewController") as! DetailMovieViewController
+            detailViewController.tableIndexPath = tableCell.indexPath
+            detailViewController.cellIndexPath = indexPath
+            detailViewController.movieImages = SessionManager.sharedInstance.getImageMovies(forId: (cell.movie?.movie?.ids?.tmdb)!)
+            detailViewController.transitioningDelegate = self
+            
+            //Carregando os detalhes...
+            let traktId : Int = (cell.movie?.movie?.ids?.trakt)!
+            APIMovie.getDetailsMovies(traktId: traktId) {
+                (response) in
                 
-                //Atribui ao objeto da próxima tela
-                detailViewController.movieDetail = movieDetails
-                self.tabBarController?.present(detailViewController, animated: true, completion: nil)
-                break
-                
-            case .onError(let erro):
-                print(erro)
-                break
-                
-            case .onNoConnection():
-                print("Sem conexão")
-                break
-                
-            default: break
+                switch response {
+                case .onSuccess(let movieDetails as MovieDetail):
+                    
+                    //Atribui ao objeto da próxima tela
+                    detailViewController.movieDetail = movieDetails
+                    self.tabBarController?.present(detailViewController, animated: true, completion: nil)
+                    break
+                    
+                case .onError(let erro):
+                    print(erro)
+                    break
+                    
+                case .onNoConnection():
+                    print("Sem conexão")
+                    break
+                    
+                default: break
+                }
             }
-        }
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
 }
 

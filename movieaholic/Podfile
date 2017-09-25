@@ -7,11 +7,12 @@ target 'movieaholic' do
   
   #Implementação de Biblioteca para requisições Http
   pod 'Alamofire', '~> 4.5.0'
+  #Implementação de Biblioteca para cache de imagem
+  pod 'AlamofireImage', '~> 3.3.0'
   #Implementação para modelagem de classe em JSON
   pod 'AlamofireObjectMapper', :git =>'https://github.com/tristanhimmelman/AlamofireObjectMapper.git', :branch => 'swift-4'
   
   # Pods for movieaholic
-
   target 'movieaholicTests' do
     inherit! :search_paths
     # Pods for testing

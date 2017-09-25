@@ -118,25 +118,10 @@ class HomeItemCell: BaseCollectionViewCell {
             switch response {
             case .onSuccess(let imageDetail as MovieImageDetail):
                 
-                //Verifica se imagem está em "cache"
-                let imageData: Data? = SessionManager.sharedInstance.getImageData(forKey: Url.endpointTheMovieDbImage.rawValue + imageDetail.filePath!)
-                if (imageData != nil) {
-                    self.viewLoading.stopShimmering()
-                    self.imgPoster.image = UIImage(data: imageData!)
-                    
-                } else {
-                    let url = URL(string: Url.endpointTheMovieDbImage.rawValue + imageDetail.filePath!)
-                    DispatchQueue.global().async {
-                        let data = try? Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
-                        DispatchQueue.main.async {
-                            self.viewLoading.stopShimmering()
-                            self.imgPoster.image = UIImage(data: data!)
-                            
-                            //Salva em "cache"
-                            SessionManager.sharedInstance.saveImageData(imageData: data!, forKey: Url.endpointTheMovieDbImage.rawValue + imageDetail.filePath!)
-                        }
-                    }
-                }
+                //Obtem imagem
+                let url = URL(string: Url.endpointTheMovieDbImage.rawValue + imageDetail.filePath!)
+                self.viewLoading.stopShimmering()
+                APIMovie.getImage(fromUrl: url!, forImageView: self.imgPoster)
                 break
                 
             case .onError(let erro):
