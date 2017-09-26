@@ -17,7 +17,9 @@ class ExploreFeedViewController: BaseTableController {
     let cellID = "cellID"
     var categories = ["Trending"]
     var moviesTrending: NSMutableArray!
+    var moviesTrendingFiltered = NSMutableArray()
     var refreshControl: UIRefreshControl!
+    var currentSearchText: String! = ""
     
     lazy var tbvMovies: UITableView = {
         let view = UITableView()
@@ -145,7 +147,11 @@ extension ExploreFeedViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! CategoryTableViewCell
         
         cell.title = categories[indexPath.section]
-        cell.items = moviesTrending as! [MovieTrending]
+        if (moviesTrendingFiltered.count > 0 || !self.currentSearchText.isEmpty) {
+            cell.items = moviesTrendingFiltered as! [MovieTrending]
+        } else {
+            cell.items = moviesTrending as! [MovieTrending]
+        }
         cell.indexPath = indexPath // needed for dismiss animation
         
         if let parent = parent as? CategoryTableViewCellDelegate {
@@ -153,6 +159,42 @@ extension ExploreFeedViewController: UITableViewDataSource {
         }
         
         return cell
+    }
+}
+
+extension ExploreFeedViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filter(searchText: searchBar.text!)
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        filter(searchText: searchBar.text!)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        searchBar.text = ""
+        self.currentSearchText = ""
+        self.moviesTrendingFiltered = NSMutableArray()
+        self.tbvMovies.reloadData()
+    }
+    
+    func filter(searchText: String) {
+        //Filtrar filmes
+        self.currentSearchText = searchText
+        if !self.currentSearchText.isEmpty {
+            let swiftArray = NSArray(array:moviesTrending) as! Array<MovieTrending>
+            var swiftArrayFilter: Array<MovieTrending>
+            swiftArrayFilter = swiftArray.filter { movie in
+                return (movie.movie?.title?.lowercased().contains(self.currentSearchText.lowercased()))!
+            }
+            self.moviesTrendingFiltered = NSMutableArray(array: swiftArrayFilter)
+            self.tbvMovies.reloadData()
+            
+        } else {
+            self.moviesTrendingFiltered = NSMutableArray()
+            self.tbvMovies.reloadData()
+        }
     }
 }
 

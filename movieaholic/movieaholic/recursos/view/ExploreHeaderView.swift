@@ -24,7 +24,8 @@ class ExploreHeaderView: UIView {
     
     var delegate: UIViewController? {
         didSet {
-            //destinationFilter.delegate = delegate
+            //let controller = delegate as! MainViewController
+            //searchBarFilter.delegate = controller.currentPageController as? UISearchBarDelegate
             //datePicker.delegate = delegate
             //guestFilter.delegate = delegate
         }
@@ -115,22 +116,12 @@ class ExploreHeaderView: UIView {
         return btn
     }()
     
-    lazy var btnPlacesFilter: UIButton = {
-        let btn = UIButton()
-        btn.translatesAutoresizingMaskIntoConstraints = false
-        btn.backgroundColor = UIColor.primaryColor()
-        btn.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
-        btn.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        btn.adjustsImageWhenHighlighted = false
-        btn.addTarget(self, action: #selector(ExploreHeaderView.funcNotImplemented), for: .touchUpInside)
-        btn.imageView?.contentMode = .scaleAspectFit
-        
-        btn.setTitle("Places", for: .normal)
-        btn.setTitleColor(UIColor.white, for: .normal)
-        btn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
-        btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
-        btn.titleLabel?.lineBreakMode = .byTruncatingTail
-        return btn
+    lazy var searchBarFilter: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.backgroundColor = UIColor.primaryColor()
+        searchBar.showsCancelButton = true
+        return searchBar
     }()
     
     lazy var btnNews: UIButton = {
@@ -196,18 +187,18 @@ class ExploreHeaderView: UIView {
         collapseButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
         collapseButton.widthAnchor.constraint(equalToConstant: collapseButtonHeight).isActive = true
         
-        addSubview(btnPlacesFilter)
+        addSubview(searchBarFilter)
         
-        btnPlacesFilter.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        destinationFilterTopConstraint = btnPlacesFilter.topAnchor.constraint(equalTo: topAnchor, constant: collapseButtonHeight + collapseButtonMaxTopSpacing + 10)
+        searchBarFilter.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        destinationFilterTopConstraint = searchBarFilter.topAnchor.constraint(equalTo: topAnchor, constant: collapseButtonHeight + collapseButtonMaxTopSpacing + 10)
         destinationFilterTopConstraint?.isActive = true
-        btnPlacesFilter.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        btnPlacesFilter.widthAnchor.constraint(equalTo: widthAnchor, constant: -20).isActive = true
+        searchBarFilter.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        searchBarFilter.widthAnchor.constraint(equalTo: widthAnchor, constant: -20).isActive = true
         
         addSubview(summaryFilter)
         
         summaryFilter.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        summaryFilter.topAnchor.constraint(equalTo: btnPlacesFilter.topAnchor).isActive = true
+        summaryFilter.topAnchor.constraint(equalTo: searchBarFilter.topAnchor).isActive = true
         summaryFilter.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         summaryFilter.widthAnchor.constraint(equalTo: widthAnchor, constant: -20).isActive = true
         summaryFilter.alpha = 0
@@ -215,7 +206,7 @@ class ExploreHeaderView: UIView {
         addSubview(btnNews)
         
         btnNews.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        btnNews.topAnchor.constraint(equalTo: btnPlacesFilter.bottomAnchor, constant: 10).isActive = true
+        btnNews.topAnchor.constraint(equalTo: searchBarFilter.bottomAnchor, constant: 10).isActive = true
         btnNews.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         btnNews.widthAnchor.constraint(equalTo: widthAnchor, constant: -20).isActive = true
         
@@ -247,8 +238,10 @@ class ExploreHeaderView: UIView {
         for vc in pageTabControllers {
             pagerView.appendPageTabItem(withTitle: vc.title ?? "")
             pagerView.navigationDelegate = self
+            if (searchBarFilter.delegate == nil) {
+                searchBarFilter.delegate = vc as! UISearchBarDelegate
+            }
         }
-        
     }
     
     override func layoutSubviews() {
@@ -269,14 +262,14 @@ class ExploreHeaderView: UIView {
         
         collapseButton.alpha = datePickerPercentage3
         
-        var collapseButtonTopSpacingPercentage = (headerBottom - btnPlacesFilter.frame.origin.y) / (btnPrincipal.frame.origin.y + btnPrincipal.frame.height - btnPlacesFilter.frame.origin.y)
+        var collapseButtonTopSpacingPercentage = (headerBottom - searchBarFilter.frame.origin.y) / (btnPrincipal.frame.origin.y + btnPrincipal.frame.height - searchBarFilter.frame.origin.y)
         collapseButtonTopSpacingPercentage = max(0, min(1, collapseButtonTopSpacingPercentage))
         collapseButtonTopConstraint?.constant = collapseButtonTopSpacingPercentage * collapseButtonMaxTopSpacing
         
-        summaryFilter.setTitle("\(btnPlacesFilter.titleLabel!.text!) • \(btnNews.titleLabel!.text!) • \(btnPrincipal.titleLabel!.text!)", for: .normal)
+        summaryFilter.setTitle("\("Search") • \(btnNews.titleLabel!.text!) • \(btnPrincipal.titleLabel!.text!)", for: .normal)
         
         if newHeight > midHeaderHeight {
-            btnPlacesFilter.alpha = collapseButtonTopSpacingPercentage
+            searchBarFilter.alpha = collapseButtonTopSpacingPercentage
             destinationFilterTopConstraint?.constant = max(UIApplication.shared.statusBarFrame.height + 10,collapseButtonTopSpacingPercentage * (collapseButtonHeight + collapseButtonMaxTopSpacing + 10))
             summaryFilter.alpha = 1 - collapseButtonTopSpacingPercentage
             whiteOverlayView.alpha = 0
@@ -287,7 +280,7 @@ class ExploreHeaderView: UIView {
             
         } else if newHeight == midHeaderHeight {
             destinationFilterTopConstraint?.constant = UIApplication.shared.statusBarFrame.height + 10
-            btnPlacesFilter.alpha = 0
+            searchBarFilter.alpha = 0
             summaryFilter.alpha = 1
             whiteOverlayView.alpha = 0
             
@@ -298,7 +291,7 @@ class ExploreHeaderView: UIView {
         } else {
             destinationFilterTopConstraint?.constant = destinationFilterTopConstraint!.constant - offset
             let minMidPercentage = (newHeight - minHeaderHeight) / (midHeaderHeight - minHeaderHeight)
-            btnPlacesFilter.alpha = 0
+            searchBarFilter.alpha = 0
             summaryFilter.alpha = minMidPercentage
             
             whiteOverlayView.alpha = 1 - minMidPercentage
@@ -322,7 +315,10 @@ class ExploreHeaderView: UIView {
             NSLog("OK clicado")
         })
         alertView.addAction(action)
-        pageTabControllers[0].present(alertView, animated: true, completion: nil)
+        
+        //Exibe alerta
+        let controller = delegate
+        controller?.present(alertView, animated: true, completion: nil)
     }
 }
 

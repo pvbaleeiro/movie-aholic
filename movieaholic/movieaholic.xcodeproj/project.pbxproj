@@ -76,7 +76,7 @@
 		4CE4ECE59F366D7542C86381 /* Pods_movieaholic.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_movieaholic.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		51AB2A74A0412E9E299305D1 /* Pods-movieaholicTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-movieaholicTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-movieaholicTests/Pods-movieaholicTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DBBB3961F7972B6003DC7C6 /* ScrollView+Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ScrollView+Util.swift"; sourceTree = "<group>"; };
-		8008FCD01F75C94B00C3C98C /* movieaholic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = movieaholic.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8008FCD01F75C94B00C3C98C /* Movieaholic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Movieaholic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8008FCD31F75C94B00C3C98C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8008FCD81F75C94B00C3C98C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8008FCDA1F75C94B00C3C98C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -195,7 +195,7 @@
 		8008FCD11F75C94B00C3C98C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8008FCD01F75C94B00C3C98C /* movieaholic.app */,
+				8008FCD01F75C94B00C3C98C /* Movieaholic.app */,
 				8008FCE41F75C94B00C3C98C /* movieaholicTests.xctest */,
 				8008FCEF1F75C94B00C3C98C /* movieaholicUITests.xctest */,
 			);
@@ -374,9 +374,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8008FCCF1F75C94B00C3C98C /* movieaholic */ = {
+		8008FCCF1F75C94B00C3C98C /* Movieaholic */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8008FCF81F75C94B00C3C98C /* Build configuration list for PBXNativeTarget "movieaholic" */;
+			buildConfigurationList = 8008FCF81F75C94B00C3C98C /* Build configuration list for PBXNativeTarget "Movieaholic" */;
 			buildPhases = (
 				9FC9BF9A1B2BFA078C7B1A2B /* [CP] Check Pods Manifest.lock */,
 				8008FCCC1F75C94B00C3C98C /* Sources */,
@@ -389,9 +389,9 @@
 			);
 			dependencies = (
 			);
-			name = movieaholic;
+			name = Movieaholic;
 			productName = movieaholic;
-			productReference = 8008FCD01F75C94B00C3C98C /* movieaholic.app */;
+			productReference = 8008FCD01F75C94B00C3C98C /* Movieaholic.app */;
 			productType = "com.apple.product-type.application";
 		};
 		8008FCE31F75C94B00C3C98C /* movieaholicTests */ = {
@@ -476,7 +476,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8008FCCF1F75C94B00C3C98C /* movieaholic */,
+				8008FCCF1F75C94B00C3C98C /* Movieaholic */,
 				8008FCE31F75C94B00C3C98C /* movieaholicTests */,
 				8008FCEE1F75C94B00C3C98C /* movieaholicUITests */,
 			);
@@ -731,12 +731,12 @@
 /* Begin PBXTargetDependency section */
 		8008FCE61F75C94B00C3C98C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 8008FCCF1F75C94B00C3C98C /* movieaholic */;
+			target = 8008FCCF1F75C94B00C3C98C /* Movieaholic */;
 			targetProxy = 8008FCE51F75C94B00C3C98C /* PBXContainerItemProxy */;
 		};
 		8008FCF11F75C94B00C3C98C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 8008FCCF1F75C94B00C3C98C /* movieaholic */;
+			target = 8008FCCF1F75C94B00C3C98C /* Movieaholic */;
 			targetProxy = 8008FCF01F75C94B00C3C98C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -989,7 +989,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8008FCF81F75C94B00C3C98C /* Build configuration list for PBXNativeTarget "movieaholic" */ = {
+		8008FCF81F75C94B00C3C98C /* Build configuration list for PBXNativeTarget "Movieaholic" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8008FCF91F75C94B00C3C98C /* Debug */,
