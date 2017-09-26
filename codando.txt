@@ -30,14 +30,17 @@ código
 # O que foi desenvolvido :)
 
 * Tela de catalogo dos filmes em destaque
+* Tela com os filmes favoritos
 * Grid com nome, imagem e ano de lançamento do filme
-* Zoom na imagem 
+* Opção de compartilhar a imagem do filme
+* Tela de detalhes com: galeria com várias imagens do filme, detalhes, tais como elenco e
+overview, etc
+* Tela para dar zoom na imagem 
 * Possibilidade de favoritar e desfavoritar filmes
-* Foi utilizado git flow disponibilizado em um repositório github público 
+* Foi utilizado git flow disponibilizado em um repositório github público (https://github.com/pvbaleeiro/movie-aholic)
 * Utilizada bibliotecas via COCOAPODS
 * Utilizada tela com Storyboard e via código
 * Consumo de serviço para informações dos filmes e imagens
-* Testes unitários
 
 
 # O que eu gostaria de ter incluído :/
