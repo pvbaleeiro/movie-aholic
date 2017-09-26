@@ -30,7 +30,7 @@ class DetailMovieViewController: UIViewController {
     @IBOutlet weak var lblMovieName: UILabel!
     @IBOutlet weak var btnFechar: UIButton!
     @IBOutlet weak var btnFavoritar: UIButton!
-    
+    @IBOutlet weak var imgFavorite: UIImageView!
     
     //-------------------------------------------------------------------------------------------------------------
     // MARK: Ciclo de vida
@@ -66,6 +66,13 @@ class DetailMovieViewController: UIViewController {
         let genreText: String! = String.joinedString(withArray: (movieDetail?.genres)!)
         lblGenres.text = genreText
         lblMovieName.text = movieDetail?.title
+        if let value = movieDetail?.favorite, value {
+            imgFavorite.image = imgFavorite.image?.tint(with: UIColor.red)
+            btnFavoritar.setTitle("DESFAVORITAR", for: UIControlState.normal)
+        } else {
+            imgFavorite.image = imgFavorite.image?.tint(with: UIColor.white)
+            btnFavoritar.setTitle("FAVORITAR", for: UIControlState.normal)
+        }
         makeGalleryImages()
     }
     
@@ -79,6 +86,22 @@ class DetailMovieViewController: UIViewController {
     //-------------------------------------------------------------------------------------------------------------
     @IBAction func closeScreen(_ sender: UIButton?) {
         dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func favoriteMovie(_sender: UIButton?) {
+        
+        if let value = movieDetail?.favorite, value {
+            //Inverte
+            imgFavorite.image = imgFavorite.image?.tint(with: UIColor.white)
+            btnFavoritar.setTitle("FAVORITAR", for: UIControlState.normal)
+            movieDetail?.favorite = false
+            SessionManager.sharedInstance.saveDetailMovie(detailMovie: movieDetail, forId: movieDetail!.ids?.trakt)
+        } else {
+            imgFavorite.image = imgFavorite.image?.tint(with: UIColor.red)
+            btnFavoritar.setTitle("DESFAVORITAR", for: UIControlState.normal)
+            movieDetail?.favorite = true
+            SessionManager.sharedInstance.saveDetailMovie(detailMovie: movieDetail, forId: movieDetail!.ids?.trakt)
+        }
     }
     
     @objc func clickOnImage(tapGestureRecognizer: UITapGestureRecognizer) {

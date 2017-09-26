@@ -54,6 +54,12 @@ class MainViewController: UIViewController {
         return controller
     }()
     
+    var favoriteController: FavoriteViewController = {
+        let controller = FavoriteViewController()
+        controller.title = "FAVORITE"
+        return controller
+    }()
+    
     
     //-------------------------------------------------------------------------------------------------------------
     // MARK: Ciclo de vida
@@ -118,7 +124,7 @@ class MainViewController: UIViewController {
     
     func setData() {
         //Define dados header view
-        headerView.pageTabControllers = [feedController]
+        headerView.pageTabControllers = [feedController, favoriteController]
         
         //Define dados content view
         setContent(toViewControllerAtIndex: 0)        

@@ -62,7 +62,7 @@ class SessionManager {
         let userDefaults = UserDefaults.standard
         let trendingMovies: NSMutableArray = []
         for (key, value) in userDefaults.dictionaryRepresentation() {
-            if (key.contains("trending-movie")) {
+            if (key.contains("movie-tending")) {
                 let movieTrending = Mapper<MovieTrending>().map(JSONString: value as! String)
                 trendingMovies.add(movieTrending as Any)
                 NSLog("Objeto resgatado das preferencias!")
@@ -75,7 +75,7 @@ class SessionManager {
     func removeTrendingMovies() {
         let userDefaults = UserDefaults.standard
         for (key, _) in userDefaults.dictionaryRepresentation() {
-            if (key.contains("trending-movie")) {
+            if (key.contains("movie-tending")) {
                 userDefaults.removeObject(forKey: key)
                 NSLog("Objeto removido das preferencias!")
             }
@@ -139,7 +139,6 @@ class SessionManager {
         userDefaults.setValue(detailMovie?.toJSONString(), forKey: String(format:DefaultKey.detail.rawValue, forId))
         userDefaults.synchronize()
         NSLog("Objeto armazenado nas preferencias!")
-        
     }
     
     func getDetailMovie(forId: Int!) -> MovieDetail? {
@@ -150,9 +149,40 @@ class SessionManager {
         return movieDetail
     }
     
+    func getFavoritesDetailMovie() -> NSMutableArray? {
+        let userDefaults = UserDefaults.standard
+        let favoriteMovies: NSMutableArray = []
+        for (key, value) in userDefaults.dictionaryRepresentation() {
+            if (key.contains("movie-detail")) {
+                let favoriteMovie = Mapper<MovieDetail>().map(JSONString: value as! String)
+                let trending = trendingForDetail(movieDetail: favoriteMovie!)
+                favoriteMovies.add(trending as Any)
+                NSLog("Objeto resgatado das preferencias!")
+            }
+        }
+        
+        return (favoriteMovies.count > 0) ? favoriteMovies : nil
+    }
+    
     
     //-------------------------------------------------------------------------------------------------------------
-    // MARK: Facebook share
+    // MARK: Auxiliares
+    //-------------------------------------------------------------------------------------------------------------
+    func trendingForDetail(movieDetail: MovieDetail) -> MovieTrending? {
+        
+        let trendingMovies: NSMutableArray? = getTrendingMovies()
+        for movieTrending in (trendingMovies as NSMutableArray? as! [MovieTrending]) {
+            if (movieTrending.movie?.ids?.tmdb == movieDetail.ids?.tmdb) {
+                return movieTrending
+            }
+        }
+        
+        return nil
+    }
+    
+    
+    //-------------------------------------------------------------------------------------------------------------
+    // MARK: Social/Others share
     //-------------------------------------------------------------------------------------------------------------
     func shareWithSocial(onController: UIViewController, activityItem: [AnyObject]) {
         

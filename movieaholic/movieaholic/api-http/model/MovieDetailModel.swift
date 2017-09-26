@@ -29,6 +29,7 @@ class MovieDetail: Mappable {
     var certification: String?
     //Não recebido do server
     var movieImages: MovieImage?
+    var favorite: Bool?
     
     //-------------------------------------------------------------------------------------------------------------
     // MARK: Construtor
@@ -54,5 +55,6 @@ class MovieDetail: Mappable {
         availableTranslations <- map["available_translations"]
         genres <- map["genres"]
         certification <- map["certification"]
+        favorite <- map["favorite"]
     }
 }
