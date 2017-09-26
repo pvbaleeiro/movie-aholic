@@ -107,7 +107,7 @@ class ExploreHeaderView: UIView {
         btn.setImage(img, for: .normal)
         btn.imageView?.contentMode = .scaleAspectFit
         
-        btn.setTitle("Anywhere • Anytime • 1 guest", for: .normal)
+        btn.setTitle("Search • Places • News", for: .normal)
         btn.setTitleColor(UIColor.white, for: .normal)
         btn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
         btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
@@ -115,19 +115,17 @@ class ExploreHeaderView: UIView {
         return btn
     }()
     
-    lazy var destinationFilter: UIButton = {
+    lazy var btnPlacesFilter: UIButton = {
         let btn = UIButton()
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.backgroundColor = UIColor.primaryColor()
         btn.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
         btn.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         btn.adjustsImageWhenHighlighted = false
-        
-        let img = UIImage(named: "Globe")
-        btn.setImage(img, for: .normal)
+        btn.addTarget(self, action: #selector(ExploreHeaderView.funcNotImplemented), for: .touchUpInside)
         btn.imageView?.contentMode = .scaleAspectFit
         
-        btn.setTitle("Anywhere", for: .normal)
+        btn.setTitle("Places", for: .normal)
         btn.setTitleColor(UIColor.white, for: .normal)
         btn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
         btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
@@ -135,20 +133,39 @@ class ExploreHeaderView: UIView {
         return btn
     }()
     
-    lazy var datePicker: UIDatePicker = {
-        let input = UIDatePicker()
-        input.translatesAutoresizingMaskIntoConstraints = false
-        //input.dateInputButton.backgroundColor = UIColor.primaryColor()
-        //input.delegate = self.delegate
-        return input
+    lazy var btnNews: UIButton = {
+        let btn = UIButton()
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.backgroundColor = UIColor.primaryColor()
+        btn.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
+        btn.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        btn.adjustsImageWhenHighlighted = false
+        btn.addTarget(self, action: #selector(ExploreHeaderView.funcNotImplemented), for: .touchUpInside)
+        btn.imageView?.contentMode = .scaleAspectFit
+        
+        btn.setTitle("News", for: .normal)
+        btn.setTitleColor(UIColor.white, for: .normal)
+        btn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
+        btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+        btn.titleLabel?.lineBreakMode = .byTruncatingTail
+        return btn
     }()
     
-    lazy var guestFilter: UIDatePicker = {
-        let input = UIDatePicker()
-        input.translatesAutoresizingMaskIntoConstraints = false
-        //input.occupantInputButton.backgroundColor = UIColor.primaryColor()
-        //input.delegate = self.delegate
-        return input
+    lazy var btnPrincipal: UIButton = {
+        let btn = UIButton()
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.backgroundColor = UIColor.primaryColor()
+        btn.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
+        btn.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        btn.adjustsImageWhenHighlighted = false
+        btn.imageView?.contentMode = .scaleAspectFit
+        
+        btn.setTitle("Principal", for: .normal)
+        btn.setTitleColor(UIColor.white, for: .normal)
+        btn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
+        btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+        btn.titleLabel?.lineBreakMode = .byTruncatingTail
+        return btn
     }()
     
     var pagerView: PageTabNavigationView = {
@@ -179,35 +196,35 @@ class ExploreHeaderView: UIView {
         collapseButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
         collapseButton.widthAnchor.constraint(equalToConstant: collapseButtonHeight).isActive = true
         
-        addSubview(destinationFilter)
+        addSubview(btnPlacesFilter)
         
-        destinationFilter.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        destinationFilterTopConstraint = destinationFilter.topAnchor.constraint(equalTo: topAnchor, constant: collapseButtonHeight + collapseButtonMaxTopSpacing + 10)
+        btnPlacesFilter.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        destinationFilterTopConstraint = btnPlacesFilter.topAnchor.constraint(equalTo: topAnchor, constant: collapseButtonHeight + collapseButtonMaxTopSpacing + 10)
         destinationFilterTopConstraint?.isActive = true
-        destinationFilter.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        destinationFilter.widthAnchor.constraint(equalTo: widthAnchor, constant: -20).isActive = true
+        btnPlacesFilter.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        btnPlacesFilter.widthAnchor.constraint(equalTo: widthAnchor, constant: -20).isActive = true
         
         addSubview(summaryFilter)
         
         summaryFilter.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        summaryFilter.topAnchor.constraint(equalTo: destinationFilter.topAnchor).isActive = true
+        summaryFilter.topAnchor.constraint(equalTo: btnPlacesFilter.topAnchor).isActive = true
         summaryFilter.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         summaryFilter.widthAnchor.constraint(equalTo: widthAnchor, constant: -20).isActive = true
         summaryFilter.alpha = 0
         
-        addSubview(datePicker)
+        addSubview(btnNews)
         
-        datePicker.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        datePicker.topAnchor.constraint(equalTo: destinationFilter.bottomAnchor, constant: 10).isActive = true
-        datePicker.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        datePicker.widthAnchor.constraint(equalTo: widthAnchor, constant: -20).isActive = true
+        btnNews.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        btnNews.topAnchor.constraint(equalTo: btnPlacesFilter.bottomAnchor, constant: 10).isActive = true
+        btnNews.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        btnNews.widthAnchor.constraint(equalTo: widthAnchor, constant: -20).isActive = true
         
-        addSubview(guestFilter)
+        addSubview(btnPrincipal)
         
-        guestFilter.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        guestFilter.topAnchor.constraint(equalTo: datePicker.bottomAnchor, constant: 10).isActive = true
-        guestFilter.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        guestFilter.widthAnchor.constraint(equalTo: widthAnchor, constant: -20).isActive = true
+        btnPrincipal.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        btnPrincipal.topAnchor.constraint(equalTo: btnNews.bottomAnchor, constant: 10).isActive = true
+        btnPrincipal.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        btnPrincipal.widthAnchor.constraint(equalTo: widthAnchor, constant: -20).isActive = true
         
         addSubview(whiteOverlayView)
         
@@ -244,22 +261,22 @@ class ExploreHeaderView: UIView {
         let headerBottom = newHeight - pageTabHeight
         
         let midMaxPercentage = (newHeight - midHeaderHeight) / (maxHeaderHeight - midHeaderHeight)
-        datePicker.alpha = midMaxPercentage
+        btnNews.alpha = midMaxPercentage
         
-        var datePickerPercentage3 = (headerBottom - guestFilter.frame.origin.y) / guestFilter.frame.height
+        var datePickerPercentage3 = (headerBottom - btnPrincipal.frame.origin.y) / btnPrincipal.frame.height
         datePickerPercentage3 = max(0, min(1, datePickerPercentage3)) // capped between 0 and 1
-        guestFilter.alpha = datePickerPercentage3
+        btnPrincipal.alpha = datePickerPercentage3
         
         collapseButton.alpha = datePickerPercentage3
         
-        var collapseButtonTopSpacingPercentage = (headerBottom - destinationFilter.frame.origin.y) / (guestFilter.frame.origin.y + guestFilter.frame.height - destinationFilter.frame.origin.y)
+        var collapseButtonTopSpacingPercentage = (headerBottom - btnPlacesFilter.frame.origin.y) / (btnPrincipal.frame.origin.y + btnPrincipal.frame.height - btnPlacesFilter.frame.origin.y)
         collapseButtonTopSpacingPercentage = max(0, min(1, collapseButtonTopSpacingPercentage))
         collapseButtonTopConstraint?.constant = collapseButtonTopSpacingPercentage * collapseButtonMaxTopSpacing
         
-        summaryFilter.setTitle("\(destinationFilter.titleLabel!.text!) • \(destinationFilter.titleLabel!.text!) • \(destinationFilter.titleLabel!.text!)", for: .normal)
+        summaryFilter.setTitle("\(btnPlacesFilter.titleLabel!.text!) • \(btnNews.titleLabel!.text!) • \(btnPrincipal.titleLabel!.text!)", for: .normal)
         
         if newHeight > midHeaderHeight {
-            destinationFilter.alpha = collapseButtonTopSpacingPercentage
+            btnPlacesFilter.alpha = collapseButtonTopSpacingPercentage
             destinationFilterTopConstraint?.constant = max(UIApplication.shared.statusBarFrame.height + 10,collapseButtonTopSpacingPercentage * (collapseButtonHeight + collapseButtonMaxTopSpacing + 10))
             summaryFilter.alpha = 1 - collapseButtonTopSpacingPercentage
             whiteOverlayView.alpha = 0
@@ -270,7 +287,7 @@ class ExploreHeaderView: UIView {
             
         } else if newHeight == midHeaderHeight {
             destinationFilterTopConstraint?.constant = UIApplication.shared.statusBarFrame.height + 10
-            destinationFilter.alpha = 0
+            btnPlacesFilter.alpha = 0
             summaryFilter.alpha = 1
             whiteOverlayView.alpha = 0
             
@@ -281,7 +298,7 @@ class ExploreHeaderView: UIView {
         } else {
             destinationFilterTopConstraint?.constant = destinationFilterTopConstraint!.constant - offset
             let minMidPercentage = (newHeight - minHeaderHeight) / (midHeaderHeight - minHeaderHeight)
-            destinationFilter.alpha = 0
+            btnPlacesFilter.alpha = 0
             summaryFilter.alpha = minMidPercentage
             
             whiteOverlayView.alpha = 1 - minMidPercentage
@@ -297,6 +314,15 @@ class ExploreHeaderView: UIView {
     
     @objc func handleExpand() {
         pageTabDelegate?.didExpandHeader(completion: nil)
+    }
+    
+    @objc func funcNotImplemented() {
+        let alertView = UIAlertController(title: "Aviso", message: "Essa funcionalidade ainda não foi implementada", preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default, handler: { (alert) in
+            NSLog("OK clicado")
+        })
+        alertView.addAction(action)
+        pageTabControllers[0].present(alertView, animated: true, completion: nil)
     }
 }
 
