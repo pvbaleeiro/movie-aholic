@@ -7,17 +7,28 @@
 //
 
 import Foundation
-
 import UIKit
 
+
+//-------------------------------------------------------------------------------------------------------------
+// MARK: Protocol
+//-------------------------------------------------------------------------------------------------------------
 protocol ImageExpandAnimationControllerProtocol {
     func getImageDestinationFrame() -> CGRect
 }
 
+
 class ImageExpandAnimationController: NSObject, UIViewControllerAnimatedTransitioning {
-    
+
+    //-------------------------------------------------------------------------------------------------------------
+    // MARK: Propriedades
+    //-------------------------------------------------------------------------------------------------------------
     var originFrame = CGRect.zero
     
+    
+    //-------------------------------------------------------------------------------------------------------------
+    // MARK: Ciclo de vida
+    //-------------------------------------------------------------------------------------------------------------
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0.5
     }

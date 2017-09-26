@@ -69,7 +69,6 @@ class MainViewController: UIViewController {
         
         setLayout()
         setData()
-        setText()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -128,10 +127,6 @@ class MainViewController: UIViewController {
         
         //Define dados content view
         setContent(toViewControllerAtIndex: 0)        
-    }
-    
-    func setText() {
-        
     }
 }
 

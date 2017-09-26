@@ -8,11 +8,18 @@
 
 import UIKit
 
+//-------------------------------------------------------------------------------------------------------------
+// MARK: Delegate
+//-------------------------------------------------------------------------------------------------------------
 protocol PageTabNavigationViewDelegate {
     func didSelect(tabItem: PageTabItem, atIndex index: Int, completion: (() -> Void)?)
 }
 
 class PageTabNavigationView: UIScrollView {
+    
+    //-------------------------------------------------------------------------------------------------------------
+    // MARK: Propriedades
+    //-------------------------------------------------------------------------------------------------------------
     var navigationDelegate: PageTabNavigationViewDelegate?
     var pageTabItems = [PageTabItem]()
     
@@ -60,6 +67,10 @@ class PageTabNavigationView: UIScrollView {
         }
     }
     
+    
+    //-------------------------------------------------------------------------------------------------------------
+    // MARK: Ciclo de vida
+    //-------------------------------------------------------------------------------------------------------------
     init() {
         super.init(frame: CGRect.zero)
         
@@ -74,9 +85,6 @@ class PageTabNavigationView: UIScrollView {
     
     
     override func layoutSubviews() {
-        //        if backgroundGradientLayer.superlayer == nil {
-        //            layer.insertSublayer(backgroundGradientLayer, at: 0)
-        //        }
     }
     
     func setupViews() {
@@ -115,6 +123,10 @@ class PageTabNavigationView: UIScrollView {
     }
 }
 
+
+//-------------------------------------------------------------------------------------------------------------
+// MARK: PageTabItemDelegate
+//-------------------------------------------------------------------------------------------------------------
 extension PageTabNavigationView: PageTabItemDelegate {
     func didSelect(tabItem: PageTabItem, completion: (() -> Void)?) {
         if let index = pageTabItems.index(of: tabItem) {

@@ -10,6 +10,9 @@ import Foundation
 
 extension Date {
     
+    //-------------------------------------------------------------------------------------------------------------
+    // MARK: Métodos
+    //-------------------------------------------------------------------------------------------------------------
     static func hoursBetween(initialDate: Date?, finalDate: Date?) -> Int {
         
         //Verifica se alguma das datas informadas é nula

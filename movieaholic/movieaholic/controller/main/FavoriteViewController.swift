@@ -19,7 +19,6 @@ class FavoriteViewController: ExploreFeedViewController {
         
         setLayout()
         setData()
-        setText()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,10 +45,6 @@ class FavoriteViewController: ExploreFeedViewController {
     
     override func setData() {
         categories = ["My"]
-    }
-    
-    override func setText() {
-        
     }
     
     

@@ -8,6 +8,9 @@
 
 import UIKit
 
+//-------------------------------------------------------------------------------------------------------------
+// MARK: Delegate
+//-------------------------------------------------------------------------------------------------------------
 protocol ExploreHeaderViewDelegate {
     func didSelect(viewController: UIViewController, completion: (() -> Void)?)
     func didCollapseHeader(completion: (() -> Void)?)
@@ -16,6 +19,9 @@ protocol ExploreHeaderViewDelegate {
 
 class ExploreHeaderView: UIView {
     
+    //-------------------------------------------------------------------------------------------------------------
+    // MARK: Propriedades
+    //-------------------------------------------------------------------------------------------------------------
     override var bounds: CGRect {
         didSet {
             backgroundGradientLayer.frame = bounds
@@ -24,10 +30,6 @@ class ExploreHeaderView: UIView {
     
     var delegate: UIViewController? {
         didSet {
-            //let controller = delegate as! MainViewController
-            //searchBarFilter.delegate = controller.currentPageController as? UISearchBarDelegate
-            //datePicker.delegate = delegate
-            //guestFilter.delegate = delegate
         }
     }
     
@@ -239,15 +241,12 @@ class ExploreHeaderView: UIView {
             pagerView.appendPageTabItem(withTitle: vc.title ?? "")
             pagerView.navigationDelegate = self
             if (searchBarFilter.delegate == nil) {
-                searchBarFilter.delegate = vc as! UISearchBarDelegate
+                searchBarFilter.delegate = vc as? UISearchBarDelegate
             }
         }
     }
     
     override func layoutSubviews() {
-        //        if backgroundGradientLayer.superlayer == nil {
-        //            layer.insertSublayer(backgroundGradientLayer, at: 0)
-        //        }
     }
     
     public func updateHeader(newHeight: CGFloat, offset: CGFloat) {
@@ -322,6 +321,10 @@ class ExploreHeaderView: UIView {
     }
 }
 
+
+//-------------------------------------------------------------------------------------------------------------
+// MARK: PageTabNavigationViewDelegate
+//-------------------------------------------------------------------------------------------------------------
 extension ExploreHeaderView: PageTabNavigationViewDelegate {
     func didSelect(tabItem: PageTabItem, atIndex index: Int, completion: (() -> Void)?) {
         if index >= 0, index < pageTabControllers.count {

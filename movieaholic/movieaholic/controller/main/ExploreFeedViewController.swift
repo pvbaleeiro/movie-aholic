@@ -43,7 +43,6 @@ class ExploreFeedViewController: BaseTableController {
         
         setLayout()
         setData()
-        setText()
     }
     
     
@@ -73,10 +72,6 @@ class ExploreFeedViewController: BaseTableController {
     
     func setData() {
         buscaDados(forceUpdate: false)
-    }
-    
-    func setText() {
-        
     }
     
     

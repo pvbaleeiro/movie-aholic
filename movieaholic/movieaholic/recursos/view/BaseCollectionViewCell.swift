@@ -10,6 +10,9 @@ import UIKit
 
 class BaseCollectionViewCell: UICollectionViewCell {
     
+    //-------------------------------------------------------------------------------------------------------------
+    // MARK: Ciclo de vida
+    //-------------------------------------------------------------------------------------------------------------
     override init(frame: CGRect) {
         super.init(frame: frame)
         setLayout()

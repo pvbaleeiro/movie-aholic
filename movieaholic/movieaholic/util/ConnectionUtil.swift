@@ -10,6 +10,9 @@ import Foundation
 
 class ConnectionUtil {
     
+    //-------------------------------------------------------------------------------------------------------------
+    // MARK: Conexão
+    //-------------------------------------------------------------------------------------------------------------
     class func isConnected() ->Bool {
         return !(Reachability()?.connection == Reachability.Connection.none)
     }

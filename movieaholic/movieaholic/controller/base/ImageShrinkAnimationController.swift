@@ -8,14 +8,24 @@
 
 import UIKit
 
+//-------------------------------------------------------------------------------------------------------------
+// MARK: Protocol
+//-------------------------------------------------------------------------------------------------------------
 protocol ImageShrinkAnimationControllerProtocol {
     func getInitialImageFrame() -> CGRect
 }
 
 class ImageShrinkAnimationController: NSObject, UIViewControllerAnimatedTransitioning {
     
+    //-------------------------------------------------------------------------------------------------------------
+    // MARK: Propriedades
+    //-------------------------------------------------------------------------------------------------------------
     var destinationFrame = CGRect.zero
     
+    
+    //-------------------------------------------------------------------------------------------------------------
+    // MARK: Ciclo de vida
+    //-------------------------------------------------------------------------------------------------------------
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0.5
     }

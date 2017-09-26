@@ -26,8 +26,6 @@ class DetailImageZoomViewController: UIViewController {
         super.viewDidLoad()
         
         setLayout()
-        setData()
-        setText()
     }
     
     
@@ -40,16 +38,6 @@ class DetailImageZoomViewController: UIViewController {
         self.scrContent.minimumZoomScale = 1.0
         self.scrContent.maximumZoomScale = 6.0
         self.imgZoom.image = imgReference
-    }
-    
-    func setData() {
-        
-        //Seta os dados
-        
-    }
-    
-    func setText() {
-        
     }
     
     

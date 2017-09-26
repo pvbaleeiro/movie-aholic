@@ -8,6 +8,15 @@
 
 import UIKit
 
+//-------------------------------------------------------------------------------------------------------------
+// MARK: Enum / Constantes
+//-------------------------------------------------------------------------------------------------------------
+enum DetailMovieViewControllerText: String {
+    case favoritar = "FAVORITAR"
+    case desfavoritar = "DESFAVORITAR"
+}
+
+
 class DetailMovieViewController: UIViewController {
     
     
@@ -40,7 +49,6 @@ class DetailMovieViewController: UIViewController {
         
         setLayout()
         setData()
-        setText()
     }
     
     
@@ -68,16 +76,12 @@ class DetailMovieViewController: UIViewController {
         lblMovieName.text = movieDetail?.title
         if let value = movieDetail?.favorite, value {
             imgFavorite.image = imgFavorite.image?.tint(with: UIColor.red)
-            btnFavoritar.setTitle("DESFAVORITAR", for: UIControlState.normal)
+            btnFavoritar.setTitle(DetailMovieViewControllerText.desfavoritar.rawValue, for: UIControlState.normal)
         } else {
             imgFavorite.image = imgFavorite.image?.tint(with: UIColor.white)
-            btnFavoritar.setTitle("FAVORITAR", for: UIControlState.normal)
+            btnFavoritar.setTitle(DetailMovieViewControllerText.favoritar.rawValue, for: UIControlState.normal)
         }
         makeGalleryImages()
-    }
-    
-    func setText() {
-        
     }
     
     
@@ -93,12 +97,12 @@ class DetailMovieViewController: UIViewController {
         if let value = movieDetail?.favorite, value {
             //Inverte
             imgFavorite.image = imgFavorite.image?.tint(with: UIColor.white)
-            btnFavoritar.setTitle("FAVORITAR", for: UIControlState.normal)
+            btnFavoritar.setTitle(DetailMovieViewControllerText.favoritar.rawValue, for: UIControlState.normal)
             movieDetail?.favorite = false
             SessionManager.sharedInstance.saveDetailMovie(detailMovie: movieDetail, forId: movieDetail!.ids?.trakt)
         } else {
             imgFavorite.image = imgFavorite.image?.tint(with: UIColor.red)
-            btnFavoritar.setTitle("DESFAVORITAR", for: UIControlState.normal)
+            btnFavoritar.setTitle(DetailMovieViewControllerText.desfavoritar.rawValue, for: UIControlState.normal)
             movieDetail?.favorite = true
             SessionManager.sharedInstance.saveDetailMovie(detailMovie: movieDetail, forId: movieDetail!.ids?.trakt)
         }

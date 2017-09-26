@@ -10,6 +10,9 @@ import UIKit
 
 class BaseTableViewCell: UITableViewCell {
     
+    //-------------------------------------------------------------------------------------------------------------
+    // MARK: Ciclo de vida
+    //-------------------------------------------------------------------------------------------------------------
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()

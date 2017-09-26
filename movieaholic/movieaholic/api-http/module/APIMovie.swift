@@ -156,9 +156,6 @@ class APIMovie {
     
     class func getImage(fromUrl: URL, forImageView: UIImageView) {
         
-        //Inicia processo
-        
-        
         //Seta a imagem
         let placeholderImage = UIImage(named: "default-placeholder~universal")!
         forImageView.af_setImage(withURL: fromUrl, placeholderImage: placeholderImage)

@@ -10,6 +10,9 @@ import UIKit
 
 public class LoadingOverlay{
     
+    //-------------------------------------------------------------------------------------------------------------
+    // MARK: Controller
+    //-------------------------------------------------------------------------------------------------------------
     var overlayView = UIView()
     var activityIndicator = UIActivityIndicatorView()
     var bgView = UIView()

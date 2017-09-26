@@ -8,6 +8,9 @@
 
 import UIKit
 
+//-------------------------------------------------------------------------------------------------------------
+// MARK: Delegate
+//-------------------------------------------------------------------------------------------------------------
 protocol BaseTableControllerDelegate {
     var headerViewHeightConstraint: NSLayoutConstraint? { get set }
     var headerView: ExploreHeaderView { get set }
@@ -20,12 +23,20 @@ protocol BaseTableControllerDelegate {
 }
 
 class BaseTableController: UIViewController {
+    
+    //-------------------------------------------------------------------------------------------------------------
+    // MARK: Propriedades
+    //-------------------------------------------------------------------------------------------------------------
     var headerDelegate: BaseTableControllerDelegate!
     var previousScrollOffset: CGFloat = 0
     
     var isHiddenStatusBar: Bool = false
     var statusBarStyle: UIStatusBarStyle = .lightContent
     
+    
+    //-------------------------------------------------------------------------------------------------------------
+    // MARK: Ciclo de vida
+    //-------------------------------------------------------------------------------------------------------------
     override func didMove(toParentViewController parent: UIViewController?) {
         if let del = parent as? BaseTableControllerDelegate {
             self.headerDelegate = del
@@ -72,6 +83,10 @@ class BaseTableController: UIViewController {
     }
 }
 
+
+//-------------------------------------------------------------------------------------------------------------
+// MARK: UITableViewDelegate
+//-------------------------------------------------------------------------------------------------------------
 extension BaseTableController: UITableViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let absoluteTop: CGFloat = 0
