@@ -139,7 +139,18 @@ class SessionManager {
     
     func saveDetailMovie(detailMovie: MovieDetail?, forId: Int!) {
         let userDefaults = UserDefaults.standard
-        if (detailMovie?.favorite)! {
+        //Verifica qual ação
+        var save: Bool = false
+        if let favorite = detailMovie?.favorite {
+            if (favorite) {
+                save = true
+            }
+        } else {
+            save = true
+        }
+        
+        //Salva efetivamente
+        if (save) {
             userDefaults.setValue(detailMovie?.toJSONString(), forKey: String(format:DefaultKey.detail.rawValue, forId))
             userDefaults.synchronize()
             NSLog("Objeto armazenado nas preferencias!")
