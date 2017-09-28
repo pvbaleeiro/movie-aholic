@@ -64,7 +64,9 @@ class SessionManager {
         for (key, value) in userDefaults.dictionaryRepresentation() {
             if (key.contains("movie-tending")) {
                 let movieTrending = Mapper<MovieTrending>().map(JSONString: value as! String)
-                trendingMovies.add(movieTrending as Any)
+                if ((movieTrending) != nil) {
+                    trendingMovies.add(movieTrending as Any)
+                }
                 NSLog("Objeto resgatado das preferencias!")
             }
         }
@@ -77,6 +79,7 @@ class SessionManager {
         for (key, _) in userDefaults.dictionaryRepresentation() {
             if (key.contains("movie-tending")) {
                 userDefaults.removeObject(forKey: key)
+                userDefaults.synchronize()
                 NSLog("Objeto removido das preferencias!")
             }
         }
@@ -136,9 +139,16 @@ class SessionManager {
     
     func saveDetailMovie(detailMovie: MovieDetail?, forId: Int!) {
         let userDefaults = UserDefaults.standard
-        userDefaults.setValue(detailMovie?.toJSONString(), forKey: String(format:DefaultKey.detail.rawValue, forId))
-        userDefaults.synchronize()
-        NSLog("Objeto armazenado nas preferencias!")
+        if (detailMovie?.favorite)! {
+            userDefaults.setValue(detailMovie?.toJSONString(), forKey: String(format:DefaultKey.detail.rawValue, forId))
+            userDefaults.synchronize()
+            NSLog("Objeto armazenado nas preferencias!")
+            
+        } else {
+            userDefaults.removeObject(forKey: String(format:DefaultKey.detail.rawValue, forId))
+            userDefaults.synchronize()
+            NSLog("Objeto removido das preferencias!")
+        }
     }
     
     func getDetailMovie(forId: Int!) -> MovieDetail? {
@@ -156,7 +166,9 @@ class SessionManager {
             if (key.contains("movie-detail")) {
                 let favoriteMovie = Mapper<MovieDetail>().map(JSONString: value as! String)
                 let trending = trendingForDetail(movieDetail: favoriteMovie!)
-                favoriteMovies.add(trending as Any)
+                if (trending != nil) {
+                    favoriteMovies.add(trending as Any)
+                }
                 NSLog("Objeto resgatado das preferencias!")
             }
         }
