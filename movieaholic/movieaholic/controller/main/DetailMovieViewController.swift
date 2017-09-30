@@ -27,6 +27,11 @@ class DetailMovieViewController: UIViewController {
     var cellIndexPath: IndexPath?
     var movieDetail: MovieDetail?
     var movieImages: MovieImage?
+    var isResizeContentView: Bool! = false
+    let spaceIncrease: CGFloat! = 40
+    @IBOutlet weak var viewContentHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var viewContent: UIView!
+    @IBOutlet weak var viewSeparator: UIView!
     @IBOutlet weak var lblReleaseDate: UILabel!
     @IBOutlet weak var lblRuntime: UILabel!
     @IBOutlet weak var lblTagline: UILabel!
@@ -51,6 +56,17 @@ class DetailMovieViewController: UIViewController {
         setData()
     }
     
+    override func viewDidLayoutSubviews() {
+        
+        super.viewDidLayoutSubviews()
+        
+        if (!isResizeContentView) {
+            isResizeContentView = true
+            let increaseHeight: CGFloat = lblOverview.intrinsicContentSize.height + lblGenres.intrinsicContentSize.height + spaceIncrease
+                viewContentHeightConstraint.constant = viewContentHeightConstraint.constant + increaseHeight
+        }
+    }
+    
     
     //-------------------------------------------------------------------------------------------------------------
     // MARK: Sets
@@ -59,6 +75,10 @@ class DetailMovieViewController: UIViewController {
         
         //Define layout geral
         self.view.backgroundColor = UIColor.white
+        self.viewContent.backgroundColor = UIColor.white
+        
+        //Shadow para view que separa layout
+        viewSeparator.dropShadow()
     }
     
     func setData() {
@@ -82,6 +102,11 @@ class DetailMovieViewController: UIViewController {
             btnFavoritar.setTitle(DetailMovieViewControllerText.favoritar.rawValue, for: UIControlState.normal)
         }
         makeGalleryImages()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        view.setNeedsLayout()
     }
     
     
