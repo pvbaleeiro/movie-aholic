@@ -1,0 +1,6 @@
+framework module Pods_movieaholicUITests {
+  umbrella header "Pods-movieaholicUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
