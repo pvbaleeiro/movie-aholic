@@ -52,6 +52,8 @@
 		827325613A00E7F066588E34 /* Pods_Movieaholic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80F796D088D652A845BC5381 /* Pods_Movieaholic.framework */; };
 		84B28FB60B0F763AF7043252 /* Pods_movieaholicTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A758EF4D8FE9FD8BF3F15DC /* Pods_movieaholicTests.framework */; };
 		853F6A002188FBC90027F293 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853F69FF2188FBC90027F293 /* BaseViewController.swift */; };
+		85C01D89218B78DD00C95238 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C01D88218B78DD00C95238 /* SplashViewController.swift */; };
+		85C01D8B218B795200C95238 /* Splash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85C01D8A218B795200C95238 /* Splash.storyboard */; };
 		8C404A16F9C60FD56DE5F0B6 /* Pods_movieaholicUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28969EEE98B945CDEFF52A78 /* Pods_movieaholicUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -127,6 +129,8 @@
 		80BDEDB31F78A7650079EB0F /* Date+Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Util.swift"; sourceTree = "<group>"; };
 		80F796D088D652A845BC5381 /* Pods_Movieaholic.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Movieaholic.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		853F69FF2188FBC90027F293 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		85C01D88218B78DD00C95238 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+		85C01D8A218B795200C95238 /* Splash.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Splash.storyboard; sourceTree = "<group>"; };
 		992F8042FDD0ED12DB8E8E16 /* Pods-movieaholic.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-movieaholic.debug.xcconfig"; path = "Pods/Target Support Files/Pods-movieaholic/Pods-movieaholic.debug.xcconfig"; sourceTree = "<group>"; };
 		A1FA4D944C86ADFAC58212B6 /* Pods-movieaholicTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-movieaholicTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-movieaholicTests/Pods-movieaholicTests.release.xcconfig"; sourceTree = "<group>"; };
 		A26E6694C57666441113AD26 /* Pods-movieaholicUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-movieaholicUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-movieaholicUITests/Pods-movieaholicUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -218,9 +222,7 @@
 				853F69FC2188FAF50027F293 /* app-delegate */,
 				853F69FD2188FB4B0027F293 /* controller */,
 				853F69FB2188FAE40027F293 /* old */,
-				8008FCD71F75C94B00C3C98C /* Main.storyboard */,
 				8008FCDA1F75C94B00C3C98C /* Assets.xcassets */,
-				8008FCDC1F75C94B00C3C98C /* LaunchScreen.storyboard */,
 				8008FCDF1F75C94B00C3C98C /* Info.plist */,
 			);
 			path = movieaholic;
@@ -324,6 +326,7 @@
 		8080DE221F76287500C340FB /* recursos */ = {
 			isa = PBXGroup;
 			children = (
+				85C01D85218B788A00C95238 /* storyboard */,
 				8080DE231F7628A300C340FB /* view */,
 			);
 			path = recursos;
@@ -383,7 +386,6 @@
 				8008FD0F1F75EE2900C3C98C /* config */,
 				8008FD151F760A7D00C3C98C /* controller */,
 				8008FD081F75D36900C3C98C /* delegate */,
-				8008FD1C1F761EFD00C3C98C /* extension */,
 				8080DE221F76287500C340FB /* recursos */,
 				8008FD071F75D35B00C3C98C /* util */,
 			);
@@ -402,6 +404,8 @@
 			isa = PBXGroup;
 			children = (
 				853F69FE2188FBA60027F293 /* base */,
+				8008FD1C1F761EFD00C3C98C /* extension */,
+				85C01D86218B78B900C95238 /* module */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -412,6 +416,32 @@
 				853F69FF2188FBC90027F293 /* BaseViewController.swift */,
 			);
 			path = base;
+			sourceTree = "<group>";
+		};
+		85C01D85218B788A00C95238 /* storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				8008FCDC1F75C94B00C3C98C /* LaunchScreen.storyboard */,
+				8008FCD71F75C94B00C3C98C /* Main.storyboard */,
+				85C01D8A218B795200C95238 /* Splash.storyboard */,
+			);
+			path = storyboard;
+			sourceTree = "<group>";
+		};
+		85C01D86218B78B900C95238 /* module */ = {
+			isa = PBXGroup;
+			children = (
+				85C01D87218B78CD00C95238 /* splash */,
+			);
+			path = module;
+			sourceTree = "<group>";
+		};
+		85C01D87218B78CD00C95238 /* splash */ = {
+			isa = PBXGroup;
+			children = (
+				85C01D88218B78DD00C95238 /* SplashViewController.swift */,
+			);
+			path = splash;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -529,6 +559,7 @@
 				8008FCDE1F75C94B00C3C98C /* LaunchScreen.storyboard in Resources */,
 				8008FCDB1F75C94B00C3C98C /* Assets.xcassets in Resources */,
 				8008FCD91F75C94B00C3C98C /* Main.storyboard in Resources */,
+				85C01D8B218B795200C95238 /* Splash.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -669,6 +700,7 @@
 				8008FD111F75EE5700C3C98C /* ConfigManager.swift in Sources */,
 				8080DE271F76292C00C340FB /* UIColor+Util.swift in Sources */,
 				8080DE6F1F76436F00C340FB /* ExploreFeedViewController.swift in Sources */,
+				85C01D89218B78DD00C95238 /* SplashViewController.swift in Sources */,
 				8008FD1E1F761F3300C3C98C /* UIImage+Util.swift in Sources */,
 				80BDEDB41F78A7650079EB0F /* Date+Util.swift in Sources */,
 				807BF5651F76FB9100F6F807 /* HomeItemCell.swift in Sources */,
